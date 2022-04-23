@@ -1,0 +1,39 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="[AQNu:tV)BOiA{4uVd-$">directory</variable>
+    <variable id="C8P(c}L/`UDl+2n1578u">Group_ID</variable>
+    <variable id="[vK?`F*/PEMbcHl-^l^/">update_Scenes</variable>
+  </variables>
+  <block type="procedures_defcustomnoreturn" id="[UxbBUe+j%v1r1trn@Hg" x="-938" y="-1562">
+    <mutation statements="false">
+      <arg name="directory" varid="[AQNu:tV)BOiA{4uVd-$"></arg>
+      <arg name="Group_ID" varid="C8P(c}L/`UDl+2n1578u"></arg>
+      <arg name="update_Scenes" varid="[vK?`F*/PEMbcHl-^l^/"></arg>
+    </mutation>
+    <field name="NAME">initialization</field>
+    <field name="SCRIPT">aWYgKGRpcmVjdG9yeS5pbmRleE9mKCcwX3VzZXJkYXRhLjAuJyApICsgMSA+IDApIGRpcmVjdG9yeSA9IGRpcmVjdG9yeS5yZXBsYWNlKCcwX3VzZXJkYXRhLjAuJywgJycpOwoKaWYgKCFleGlzdHNTdGF0ZSgnMF91c2VyZGF0YS4wLicgKyBkaXJlY3RvcnkgKyAnLjBfU2V0dGluZ3MuJyArIEdyb3VwX0lEICsgJy5EdXJhdGlvbi5kdXJhdGlvbl9taW4nKSl7CiAgY3JlYXRlU3RhdGUoJzBfdXNlcmRhdGEuMC4nICsgZGlyZWN0b3J5ICsgJy4wX1NldHRpbmdzLicgKyBHcm91cF9JRCArICcuRHVyYXRpb24uZHVyYXRpb25fbWluJywgMCwgewogICAgJ25hbWUnOiAnbWluIGR1cmF0aW9uJywKICAgICdyZWFkJzogdHJ1ZSwKICAgICd3cml0ZSc6IHRydWUsCiAgICAndHlwZSc6ICdudW1iZXInCiAgfSk7CiAgY29uc29sZS5sb2coIkRlciBEYXRlbnB1bmt0IGbDvHIgZGllIG1pbmltYWxlIERhdWVyIGRlcyBGYXJid2VjaHNlbHMgd3VyZGUgYW5nZWxlZ3QuIik7Cn0KCmlmICggIWV4aXN0c1N0YXRlKCcwX3VzZXJkYXRhLjAuJyArIGRpcmVjdG9yeSArICcuMF9TZXR0aW5ncy4nICsgR3JvdXBfSUQgKyAnLkR1cmF0aW9uLmR1cmF0aW9uX21heCcpKXsKICBjcmVhdGVTdGF0ZSgnMF91c2VyZGF0YS4wLicgKyBkaXJlY3RvcnkgKyAnLjBfU2V0dGluZ3MuJyArIEdyb3VwX0lEICsgJy5EdXJhdGlvbi5kdXJhdGlvbl9tYXgnLCAwLCB7CiAgICAnbmFtZSc6ICdtYXggZHVyYXRpb24nLAogICAgJ3JlYWQnOiB0cnVlLAogICAgJ3dyaXRlJzogdHJ1ZSwKICAgICd0eXBlJzogJ251bWJlcicKICB9KTsKICBjb25zb2xlLmxvZygiRGVyIERhdGVucHVua3QgZsO8ciBkaWUgbWF4aW1hbGUgRGF1ZXIgZGVzIEZhcmJ3ZWNoc2VscyB3dXJkZSBhbmdlbGVndC4iKTsKfQoKaWYgKCFleGlzdHNTdGF0ZSgnMF91c2VyZGF0YS4wLicgKyBkaXJlY3RvcnkgKyAnLjBfU2V0dGluZ3MuJyArIEdyb3VwX0lEICsgJy5CcmlnaHRuZXNzLmJyaWdodG5lc3NfbWluJykpewogIGNyZWF0ZVN0YXRlKCcwX3VzZXJkYXRhLjAuJyArIGRpcmVjdG9yeSArICcuMF9TZXR0aW5ncy4nICsgR3JvdXBfSUQgKyAnLkJyaWdodG5lc3MuYnJpZ2h0bmVzc19taW4nLCAwLCB7CiAgICAgICduYW1lJzogJ21pbiBicmlnaHRuZXNzJywKICAgICAgJ3JlYWQnOiB0cnVlLAogICAgICAnd3JpdGUnOiB0cnVlLAogICAgICAndHlwZSc6ICdudW1iZXInCiAgfSk7CiAgY29uc29sZS5sb2coIkRlciBEYXRlbnB1bmt0IGbDvHIgZGllIG1pbmltYWxlIEhlbGxpZ2tlaXQgZGVyIExhbXBlbmdydXBwZSB3dXJkZSBhbmdlbGVndC4iKTsKfQoKaWYgKCFleGlzdHNTdGF0ZSgnMF91c2VyZGF0YS4wLicgKyBkaXJlY3RvcnkgKyAnLjBfU2V0dGluZ3MuJyArIEdyb3VwX0lEICsgJy5CcmlnaHRuZXNzLmJyaWdodG5lc3NfbWF4JykpewogIGNyZWF0ZVN0YXRlKCcwX3VzZXJkYXRhLjAuJyArIGRpcmVjdG9yeSArICcuMF9TZXR0aW5ncy4nICsgR3JvdXBfSUQgKyAnLkJyaWdodG5lc3MuYnJpZ2h0bmVzc19tYXgnLCAwLCB7CiAgICAgICduYW1lJzogJ21heCBicmlnaHRuZXNzJywKICAgICAgJ3JlYWQnOiB0cnVlLAogICAgICAnd3JpdGUnOiB0cnVlLAogICAgICAndHlwZSc6ICdudW1iZXInCiAgfSk7CiAgY29uc29sZS5sb2coIkRlciBEYXRlbnB1bmt0IGbDvHIgZGllIG1heGltYWxlIEhlbGxpZ2tlaXQgZGVyIExhbXBlbmdydXBwZSB3dXJkZSBhbmdlbGVndC4iKTsKfQoK</field>
+    <comment pinned="false" h="80" w="160">Beschreibe diese Funktion …</comment>
+  </block>
+  <block type="procedures_callcustomnoreturn" id="KiGL1^YCsDNum[Yc=jlP" x="-938" y="-1512">
+    <mutation name="initialization">
+      <arg name="directory"></arg>
+      <arg name="Group_ID"></arg>
+      <arg name="update_Scenes"></arg>
+    </mutation>
+    <value name="ARG0">
+      <block type="text" id="$lzwLGi;/hY40u2,o:,p">
+        <field name="TEXT">0_userdata.0.licht.debug</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="text" id="D(Jt*(PJ9uz$uny:g/h]">
+        <field name="TEXT">Wohnzimmer</field>
+      </block>
+    </value>
+    <value name="ARG2">
+      <block type="logic_boolean" id="-`B=0#y6fXQK3]LLv|w{">
+        <field name="BOOL">TRUE</field>
+      </block>
+    </value>
+  </block>
+</xml>
