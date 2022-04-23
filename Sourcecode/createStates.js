@@ -1,43 +1,78 @@
+//Entfernt 0_userdata.0. aus der directory, falls sie fälschlicherweise mit angegeben wurde
 if (directory.indexOf('0_userdata.0.' ) + 1 > 0) directory = directory.replace('0_userdata.0.', '');
 
-if (!existsState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Duration.duration_min')){
-  createState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Duration.duration_min', 0, {
-    'name': 'min duration',
+settingsDirectory = '0_userdata.0.' + directory + '.0_Settings.' + Group_ID
+groupDirectory = '0_userdata.0.' + directory + Group_ID
+
+//legt Datenpunkt für minimale Duration an, falls er nicht existiert
+//sonst werden Standardwerte hinzugefügt
+createState(settingsDirectory + '.Duration.duration_min', 0, true, {
+  'name': 'min duration',
+  'read': true,
+  'write': true,
+  'type': 'number'
+}, function(err){
+  if (!err) console.log("Der Datenpunkt für die minimale Dauer des Farbwechsels wurde angelegt.");
+  else console.log("Der Datenpunkt die minimale Dauer konnte nicht erstellt werden: " + err);
+});
+
+//legt Datenpunkt für maximale Duration an, falls er nicht existiert
+//sonst werden Standardwerte hinzugefügt
+createState(settingsDirectory + '.Duration.duration_max', 0, true, {
+  'name': 'max duration',
+  'read': true,
+  'write': true,
+  'type': 'number'
+}, function(err){
+  if (!err) console.log("Der Datenpunkt für die maximale Dauer des Farbwechsels wurde angelegt.");
+  else console.log("Der Datenpunkt die maximale Dauer konnte nicht erstellt werden: " + err);
+});
+
+//legt Datenpunkt für minimale Brightness an, falls er nicht existiert
+//sonst werden Standardwerte hinzugefügt
+createState(settingsDirectory + '.Brightness.brightness_min', 0, true, {
+    'name': 'min brightness',
     'read': true,
     'write': true,
     'type': 'number'
-  });
-  console.log("Der Datenpunkt für die minimale Dauer des Farbwechsels wurde angelegt.");
-}
+}, function(err){
+  if (!err) console.log("Der Datenpunkt für die minimale Helligkeit der Lampengruppe wurde angelegt.");
+  else console.log("Der Datenpunkt die minimale Helligkeit konnte nicht erstellt werden: " + err);
+});
 
-if ( !existsState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Duration.duration_max')){
-  createState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Duration.duration_max', 0, {
-    'name': 'max duration',
+
+//legt Datenpunkt für maximale Brightness an, falls er nicht existiert
+//sonst werden Standardwerte hinzugefügt
+createState(settingsDirectory + '.Brightness.brightness_max', 0, true, {
+    'name': 'max brightness',
     'read': true,
     'write': true,
     'type': 'number'
-  });
-  console.log("Der Datenpunkt für die maximale Dauer des Farbwechsels wurde angelegt.");
+}, function(err){
+  if (!err) console.log("Der Datenpunkt für die maximale Helligkeit der Lampengruppe wurde angelegt.");
+  else console.log("Der Datenpunkt die maximale Helligkeit konnte nicht erstellt werden: " + err);
+});
+
+//löscht, falls vorhanden, Backupordner
+if (existsObject(settingsDirectory + 'Backup')){
+  deleteObject(settingsDirectory + 'Backup');
+  console.log("Der Backupordner wurde erfolgreich gelöscht.")
 }
 
-if (!existsState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Brightness.brightness_min')){
-  createState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Brightness.brightness_min', 0, {
-      'name': 'min brightness',
-      'read': true,
-      'write': true,
-      'type': 'number'
+//löscht, falls vorhanden, Changeordner
+if (existsObject(settingsDirectory + 'Change')){
+  deleteObject(settingsDirectory + 'Change', function(err){
+    if (!err) console.log("Der Changeordner wurde erfolgreich gelöscht.");
+    else console.log("Der Changeordner konnte nicht gelöscht werden: " + err);
   });
-  console.log("Der Datenpunkt für die minimale Helligkeit der Lampengruppe wurde angelegt.");
+
 }
 
-if (!existsState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Brightness.brightness_max')){
-  createState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Brightness.brightness_max', 0, {
-      'name': 'max brightness',
-      'read': true,
-      'write': true,
-      'type': 'number'
+//löscht, falls vorhanden, Commandsordner
+if (existsObject(settingsDirectory + 'Commands')){
+  deleteObject(settingsDirectory + 'Commands', function(err){
+    console.log("Der Commandsordner wurde erfolgreich gelöscht.")
   });
-  console.log("Der Datenpunkt für die maximale Helligkeit der Lampengruppe wurde angelegt.");
 }
 
 
@@ -48,8 +83,7 @@ if (!existsState('0_userdata.0.' + directory + '.0_Settings.' + Group_ID + '.Bri
 
 
 
-
-if (update_json) {
+if (update_Scenes) {
   await create_states_for_json();
 }
 await create_states_for_settings();
