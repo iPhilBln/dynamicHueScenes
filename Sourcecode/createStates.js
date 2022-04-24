@@ -76,7 +76,7 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                         deviceName = device.split('.').slice(-2)[0];
 
                                         //erstellt einen Backupdatenpunkt für jede Lampe der Gruppe
-                                        createState(settingsDirectory + '.Backup.backup_' + deviceName, "", true, {
+                                        createState(settingsDirectory + '.Backup.backup_' + deviceName, '', true, {
                                             'name': 'backup ' + deviceName,
                                             'read': true,
                                             'write': true,
@@ -96,7 +96,7 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                                         else console.log("Der Changedatenpunkt für die Lampe " + deviceName + " konnte nicht erstellt werden: " + err);
 
                                                         //erstellt einen Commanddatenpunkt für jede Lampe der Gruppe
-                                                        createState(settingsDirectory + '.Commands.command_' + deviceName, "", true, {
+                                                        createState(settingsDirectory + '.Commands.command_' + deviceName, '', true, {
                                                             'name': 'command ' + deviceName,
                                                             'read': true,
                                                             'write': true,
@@ -121,12 +121,13 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                                                         }, function(err) {
                                                                               if (!err) {
                                                                                 console.log("Das JSON File mit dein Einstellungen der Szenen wurde erfolgreich angelegt.");
+
                                                                                 var sceneName_list = (function () { try {return JSON.parse(result);} catch(e) {return {};}})();
                                                                                 for (var sceneName_index in sceneName_list) {
                                                                                   sceneName = sceneName_list[sceneName_index];
                                                                                   let scene = getAttr(sceneName, 'name');
                                                                                   createState(groupDirectory + '.' + scene, 'false', true, {
-                                                                                      'name': 'start' + scene,
+                                                                                      'name': 'start ' + scene,
                                                                                       'read': true,
                                                                                       'write': true,
                                                                                       'type': 'boolean'
