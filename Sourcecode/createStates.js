@@ -132,7 +132,7 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                                                                     for (var sceneName_index in sceneName_list) {
                                                                                       sceneName = sceneName_list[sceneName_index];
                                                                                       let scene = getAttr(sceneName, 'name');
-                                                                                      //Datenpunkt für jeweilige Szene anlegen 
+                                                                                      //Datenpunkt für jeweilige Szene anlegen
                                                                                       createState(groupDirectory + '.' + scene, 'false', true, {
                                                                                           'name': 'start ' + scene,
                                                                                           'read': true,
