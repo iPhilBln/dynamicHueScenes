@@ -143,6 +143,10 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                                                                               else console.log("Die Szene " + scene + " konnte nicht erstellt werden: " + err);
                                                                                             });
                                                                                     }
+                                                                                    let timeout = setTimeout(async function () {
+                                                                                      console.log("Fertig!");
+                                                                                      console.log("IDs vom Selektor: state[id=" + groupDirectory + "]");
+                                                                                    }, 2000);
                                                                                   } else console.log("Der Szenenordner der Gruppe " + Group_ID + " konnte nicht gelöscht werden: " + err);
                                                                                 });
                                                                               } else console.log("Das JSON File mit dein Einstellungen der Szenen konnte nicht erstellt werden: " + err);
