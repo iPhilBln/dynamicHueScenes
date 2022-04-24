@@ -1,9 +1,10 @@
 //Entfernt 0_userdata.0. aus der directory, falls sie fälschlicherweise mit angegeben wurde
 if (directory.indexOf('0_userdata.0.' ) + 1 > 0) directory = directory.replace('0_userdata.0.', '');
 
-settingsDirectory = '0_userdata.0.' + directory + '.0_Settings.' + Group_ID;
-groupDirectory = '0_userdata.0.' + directory + '.1_Groups.' + Group_ID;
-selectorDirectory = 'state[id=*](dynamic_lightscenes=' + Group_ID + ')';
+const settingsDirectory = '0_userdata.0.' + directory + '.0_Settings.' + Group_ID;
+const groupDirectory = '0_userdata.0.' + directory + '.1_Scenes.' + Group_ID;
+const selectorDirectory = 'state[id=*](dynamic_lightscenes=' + Group_ID + ')';
+const weblinkJsonFile = 'https://raw.githubusercontent.com/iPhilBln/dynamicHueScenes/beta/Sourcecode/sceneSettings.json';
 
 //legt Datenpunkt für minimale Duration an, falls er nicht existiert
 //sonst werden Standardwerte hinzugefügt
@@ -50,16 +51,19 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                 else console.log("Der Datenpunkt für die maximale Helligkeit konnte nicht erstellt werden: " + err);
 
                                 //löscht, falls vorhanden, Backupordner
+                                //bereinigt damit nicht mehr vorhandene Geräte
                                 deleteObject(settingsDirectory + '.Backup', {recursive:true}, function(err){
                                   if (!err) console.log("Der Backupordner wurde erfolgreich gelöscht.");
                                   else console.log("Der Backupordner konnte nicht gelöscht werden: " + err);
 
                                   //löscht, falls vorhanden, Changeordner
+                                  //bereinigt damit nicht mehr vorhandene Geräte
                                   deleteObject(settingsDirectory + '.Change', {recursive:true}, function(err){
                                     if (!err) console.log("Der Changeordner wurde erfolgreich gelöscht.");
                                     else console.log("Der Changeordner konnte nicht gelöscht werden: " + err);
 
                                     //löscht, falls vorhanden, Commandsordner
+                                    //bereinigt damit nicht mehr vorhandene Geräte
                                     deleteObject(settingsDirectory + '.Commands', {recursive:true}, function(err){
                                       if(!err) console.log("Der Commandsordner wurde erfolgreich gelöscht.");
                                       else console.log("Der Commandsordner konnte nicht gelöscht werden: " + err);
@@ -100,6 +104,27 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                                           }, function(err){
                                                                 if (!err) console.log("Der Commanddatenpunkt für die Lampe " + deviceName + " wurde angelegt.");
                                                                 else console.log("Der COmmanddatenpunkt für die Lampe " + deviceName + " konnte nicht erstellt werden: " + err);
+
+                                                                if (update_Scenes) {
+                                                                  //lädt das JSON File mit den Einstellungen der verschiedenen Szenen von GitHub heruntergeladen
+                                                                  //kopiert es in die Zwischenablage
+                                                                  //löscht das erstellte File vom Dateisystem
+                                                                  exec('wget ' + weblinkJsonFile + ' ; cat sceneSettings.json ; rm sceneSettings.json', async function (error, result, stderr) {
+                                                                    if(error) console.log("Das JSON File konnte nicht heruntergeladen werden: " + error);
+                                                                    else {
+                                                                      //erstellt Datenpunkt mit dein Einstellungen der Szenen aus der Zwischenablage
+                                                                      createState(settingsDirectory + '.scene settings', result, true, {
+                                                                          'name': 'scene settings',
+                                                                          'read': true,
+                                                                          'write': true,
+                                                                          'type': 'json'
+                                                                        }, function(err){
+                                                                              if (!err) console.log("Das JSON File mit dein Einstellungen der Szenen wurde erfolgreich angelegt.");
+                                                                              else console.log("Das JSON File mit dein Einstellungen der Szenen konnte nicht erstellt werden: " + err);
+                                                                      });
+                                                                    }
+                                                                  });
+                                                                }
                                                         });
                                                 });
                                         });
@@ -111,11 +136,3 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                 });
         });
 });
-
-
-
-
-if (update_Scenes) {
-  await create_states_for_json();
-}
-await create_states_for_settings();
