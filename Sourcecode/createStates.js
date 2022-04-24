@@ -46,7 +46,7 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                             'read': true,
                             'write': true,
                             'type': 'number'
-                          }, function(err){
+                          }, function (err) {
                                 if (!err) console.log("Der Datenpunkt für die maximale Helligkeit der Lampengruppe wurde angelegt.");
                                 else console.log("Der Datenpunkt für die maximale Helligkeit konnte nicht erstellt werden: " + err);
 
@@ -105,7 +105,7 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                                                 if (!err) console.log("Der Commanddatenpunkt für die Lampe " + deviceName + " wurde angelegt.");
                                                                 else console.log("Der COmmanddatenpunkt für die Lampe " + deviceName + " konnte nicht erstellt werden: " + err);
 
-                                                                if (update_Scenes) {
+                                                                if (download_scenes) {
                                                                   //lädt das JSON File mit den Einstellungen der verschiedenen Szenen von GitHub heruntergeladen
                                                                   //kopiert es in die Zwischenablage
                                                                   //löscht das erstellte File vom Dateisystem
@@ -122,22 +122,30 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                                                               if (!err) {
                                                                                 console.log("Das JSON File mit dein Einstellungen der Szenen wurde erfolgreich angelegt.");
 
-                                                                                var sceneName_list = (function () { try {return JSON.parse(result);} catch(e) {return {};}})();
-                                                                                for (var sceneName_index in sceneName_list) {
-                                                                                  sceneName = sceneName_list[sceneName_index];
-                                                                                  let scene = getAttr(sceneName, 'name');
-                                                                                  createState(groupDirectory + '.' + scene, 'false', true, {
-                                                                                      'name': 'start ' + scene,
-                                                                                      'read': true,
-                                                                                      'write': true,
-                                                                                      'type': 'boolean'
-                                                                                    }, function(err){
-                                                                                          if (!err) console.log("Die Szene " + scene + " wurde erfolgreich angelegt.");
-                                                                                          else console.log("Die Szene " + scene + " konnte nicht erstellt werden: " + err);
-                                                                                  });
-                                                                                }
-                                                                              }
-                                                                              else console.log("Das JSON File mit dein Einstellungen der Szenen konnte nicht erstellt werden: " + err);
+                                                                                //löscht, falls vorhanden, Szenenordner der Gruppe
+                                                                                //bereinigt damit nicht mehr vorhandene Szenen
+                                                                                deleteObject(groupDirectory, {recursive:true}, function(err){
+                                                                                  if (!err) {
+                                                                                    console.log("Der Szenenordner der Gruppe " + Group_ID + " wurde erfolgreich gelöscht.");
+                                                                                    //erzeugt für jede Szene aus der dem JSON File eine Datenpunkt zum Starten der Szene
+                                                                                    var sceneName_list = (function () { try {return JSON.parse(result);} catch(e) {return {};}})();
+                                                                                    for (var sceneName_index in sceneName_list) {
+                                                                                      sceneName = sceneName_list[sceneName_index];
+                                                                                      let scene = getAttr(sceneName, 'name');
+                                                                                      //Datenpunkt für jeweilige Szene anlegen 
+                                                                                      createState(groupDirectory + '.' + scene, 'false', true, {
+                                                                                          'name': 'start ' + scene,
+                                                                                          'read': true,
+                                                                                          'write': true,
+                                                                                          'type': 'boolean'
+                                                                                        }, function(err){
+                                                                                              if (!err) console.log("Die Szene " + scene + " wurde erfolgreich angelegt.");
+                                                                                              else console.log("Die Szene " + scene + " konnte nicht erstellt werden: " + err);
+                                                                                            });
+                                                                                    }
+                                                                                  } else console.log("Der Szenenordner der Gruppe " + Group_ID + " konnte nicht gelöscht werden: " + err);
+                                                                                });
+                                                                              } else console.log("Das JSON File mit dein Einstellungen der Szenen konnte nicht erstellt werden: " + err);
                                                                       });
                                                                     }
                                                                   });
