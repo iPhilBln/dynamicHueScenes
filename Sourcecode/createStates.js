@@ -118,8 +118,24 @@ createState(settingsDirectory + '.Duration.duration_min', 0, true, {
                                                                           'read': true,
                                                                           'write': true,
                                                                           'type': 'json'
-                                                                        }, function(err){
-                                                                              if (!err) console.log("Das JSON File mit dein Einstellungen der Szenen wurde erfolgreich angelegt.");
+                                                                        }, function(err) {
+                                                                              if (!err) {
+                                                                                console.log("Das JSON File mit dein Einstellungen der Szenen wurde erfolgreich angelegt.");
+                                                                                var sceneName_list = (function () { try {return JSON.parse(result);} catch(e) {return {};}})();
+                                                                                for (var sceneName_index in sceneName_list) {
+                                                                                  sceneName = sceneName_list[sceneName_index];
+                                                                                  let scene = getAttr(sceneName, 'name');
+                                                                                  createState(groupDirectory + '.' + scene, 'false', true, {
+                                                                                      'name': 'start' + scene,
+                                                                                      'read': true,
+                                                                                      'write': true,
+                                                                                      'type': 'boolean'
+                                                                                    }, function(err){
+                                                                                          if (!err) console.log("Die Szene " + scene + " wurde erfolgreich angelegt.");
+                                                                                          else console.log("Die Szene " + scene + " konnte nicht erstellt werden: " + err);
+                                                                                  });
+                                                                                }
+                                                                              }
                                                                               else console.log("Das JSON File mit dein Einstellungen der Szenen konnte nicht erstellt werden: " + err);
                                                                       });
                                                                     }
