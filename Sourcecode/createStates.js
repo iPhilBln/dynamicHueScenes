@@ -12,6 +12,7 @@ try {
   //sonst werden Standardwerte hinzugefügt
   await createStateAsync(settingsDirectory + '.Duration.duration_min', 0, true, {
     name: 'min duration',
+    role: 'state',
     read: true,
     write: true,
     type: 'number'
@@ -30,6 +31,7 @@ try {
   //sonst werden Standardwerte hinzugefügt
   await createStateAsync(settingsDirectory + '.Brightness.brightness_min', 0, true, {
       name: 'min brightness',
+      role: 'state',
       read: true,
       write: true,
       type: 'number'
@@ -39,6 +41,7 @@ try {
   //sonst werden Standardwerte hinzugefügt
   await createStateAsync(settingsDirectory + '.Brightness.brightness_max', 0, true, {
       name: 'max brightness',
+      role: 'state',
       read: true,
       write: true,
       type: 'number'
@@ -67,8 +70,9 @@ try {
       deviceName = device.split('.').slice(-2)[0];
 
       //erstellt einen Backupdatenpunkt für jede Lampe der Gruppe
-      await createStateAsync(settingsDirectory + '.Backup.backup_' + deviceName, '', true, {
+      await createStateAsync(settingsDirectory + '.Backup.backup_' + deviceName, '{}', true, {
           name: 'backup ' + deviceName,
+          role: 'state',
           read: true,
           write: true,
           type: 'json'
@@ -77,14 +81,16 @@ try {
       //erstellt einen Changedatenpunkt für jede Lampe der Gruppe
       await createStateAsync(settingsDirectory + '.Change.change_' + deviceName, false, true, {
           name: 'change ' + deviceName,
+          role: 'state',
           read: true,
           write: true,
-          type: 'boolean',
+          type: 'boolean'
       }); console.log("Der Changedatenpunkt für die Lampe " + deviceName + " wurde angelegt.");
 
       //erstellt einen Commanddatenpunkt für jede Lampe der Gruppe
-      await createStateAsync(settingsDirectory + '.Commands.command_' + deviceName, '', true, {
+      await createStateAsync(settingsDirectory + '.Commands.command_' + deviceName, '{}', true, {
           name: 'command ' + deviceName,
+          role: 'state',
           read: true,
           write: true,
           type: 'json'
@@ -99,6 +105,7 @@ try {
       //erstellt Datenpunkt mit dein Einstellungen der Szenen aus der Zwischenablage
       await createStateAsync(settingsDirectory + '.scene settings', result, true, {
           name: 'scene settings',
+          role: 'state',
           read: true,
           write: true,
           type: 'json'
@@ -118,7 +125,8 @@ try {
 
         //Datenpunkt für jeweilige Szene anlegen
         await createStateAsync(groupDirectory + '.' + scene, false, true, {
-            name: 'start ' + scene,
+            name: scene,
+            role: 'state',
             read: true,
             write: true,
             type: 'boolean'
